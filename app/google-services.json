@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "683092404776",
+    "firebase_url": "https://qrkay-ca7f7.firebaseio.com",
+    "project_id": "qrkay-ca7f7",
+    "storage_bucket": "qrkay-ca7f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683092404776:android:b05033f83d991e0d",
+        "android_client_info": {
+          "package_name": "com.qrkay.www.qrkay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683092404776-g20khnqle49h7g61nbc336dh4fl73b7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qrkay.www.qrkay",
+            "certificate_hash": "322b1e0b786cda1c4bd51e5b64bcca488ba2a438"
+          }
+        },
+        {
+          "client_id": "683092404776-9sbl43pfamjeuambtjc08ta202rljp9l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZJffY8o_YycFyv1R-tJxSsPaPxn3STz0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683092404776-9sbl43pfamjeuambtjc08ta202rljp9l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
