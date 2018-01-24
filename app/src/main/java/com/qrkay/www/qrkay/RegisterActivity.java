@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, TabActivity.class));
         }
 
         progressBar = new ProgressBar(this);
@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), TabActivity.class));
                         }else{
                             Toast.makeText(RegisterActivity.this, "Could Not Register, Please Try again", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);

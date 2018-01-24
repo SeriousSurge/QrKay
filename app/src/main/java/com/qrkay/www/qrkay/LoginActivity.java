@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, TabActivity.class));
         }
 
         progressBar = new ProgressBar(this);
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), TabActivity.class));
                         }else{
                             Toast.makeText(LoginActivity.this, "Could Not Login, Please Try again", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);

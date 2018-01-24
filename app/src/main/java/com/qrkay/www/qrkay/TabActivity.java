@@ -1,8 +1,10 @@
 package com.qrkay.www.qrkay;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -18,6 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class TabActivity extends AppCompatActivity {
 
@@ -36,10 +41,20 @@ public class TabActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if(firebaseAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+        //FirebaseUser user = firebaseAuth.getCurrentUser();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,17 +68,22 @@ public class TabActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        final TabLayout.Tab qrCode = tabLayout.newTab();
+        final TabLayout.Tab vouchers = tabLayout.newTab();
+        final TabLayout.Tab account = tabLayout.newTab();
+
+        qrCode.setText("My Code");
+        vouchers.setText("My Rewards");
+        account.setText("My Account");
+
+        tabLayout.addTab(qrCode, 0);
+        tabLayout.addTab(vouchers, 1);
+        tabLayout.addTab(account, 2);
+
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAccent));
+
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -137,9 +157,15 @@ public class TabActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return new QrFragment();
+                case 1:
+                    return new VoucherFragment();
+                case 2:
+                    return new ProfileFragment();
+            }
+            return new ProfileFragment();
         }
 
         @Override
@@ -147,5 +173,24 @@ public class TabActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+
+//        /**
+//         * assigns a title to each page number tab
+//         *
+//         * @param position page number
+//         * @return page title
+//         */
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            switch (position) {
+//                case 0:
+//                    return "My Code";
+//                case 1:
+//                    return "My Cards";
+//                case 2:
+//                    return "My Account";
+//            }
+//            return null;
+//        }
     }
 }
