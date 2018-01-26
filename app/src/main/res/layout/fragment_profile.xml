@@ -40,6 +40,37 @@
             android:text="Log out"/>
 
 
+        <TextView
+            android:text="Total Stamps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:id="@+id/stampTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:text="Used Stamps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:id="@+id/stampUsed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit voucher"/>
+
+
     </LinearLayout>
 
 </RelativeLayout>

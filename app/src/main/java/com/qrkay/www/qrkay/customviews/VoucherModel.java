@@ -5,12 +5,16 @@ package com.qrkay.www.qrkay.customviews;
  *
  */
 
-public class VoucherModel {
+public class VoucherModel extends Object{
     private String imagePath;
     private String tAndCs;
     int maxStamps;
     // TODO when setting usedStamps, use Math.min so not bigger than maxStamps
     int usedStamps;
+
+    public VoucherModel(){
+
+    }
 
     public VoucherModel(String imagePath, int max, int used){
         this.imagePath = imagePath;
