@@ -90,7 +90,6 @@ public class VoucherFragment extends Fragment {
                 mRecyclerView.setAdapter(mRecyclerViewAdapter);
                 mRecyclerView.setLayoutManager(verticalLLM);
 
-
             }
 
             @Override

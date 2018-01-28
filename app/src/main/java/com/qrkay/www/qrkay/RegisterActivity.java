@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.qrkay.www.qrkay.customviews.VoucherModel;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
@@ -28,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +64,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String  email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
+        if(!isValidEmail(email)){
+            Toast.makeText(this, "Please Enter a valid Email", Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password)){
@@ -77,6 +83,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            String userID = firebaseAuth.getUid();
+                            DatabaseReference myRef = database.getReference("Users/"+ userID + "/cards/welcome");
+                            VoucherModel welcomeVoucher = new VoucherModel("imgPath", 8, 1);
+                            myRef.setValue(welcomeVoucher);
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(), TabActivity.class));
                         }else{
@@ -95,11 +106,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
-
-
-
-
-
-
+    }
+    public final static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }
