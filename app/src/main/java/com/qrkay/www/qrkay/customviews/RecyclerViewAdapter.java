@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qrkay.www.qrkay.R;
@@ -66,8 +67,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private final int MAX_SINGLE_ROW = 6;
 
-        GridLayout gl1;
-        GridLayout gl2;
+        RelativeLayout gl1;
+        RelativeLayout gl2;
         ImageView img_1;
         ImageView img_2;
         LinearLayout line_1;
@@ -115,30 +116,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int mm = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, r.getDisplayMetrics());
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ww, ww);
-            for (int i = 0; i < card.maxStamps; i++) {
-                int numPerRow = Math.round(card.maxStamps / 2f);
+            for (int i = 0; i < card.getMaxStampsCard(); i++) {
+                int numPerRow = Math.round(card.getMaxStampsCard() / 2f);
                 // Use gl1 to get context easier than passing around
                 StampView view = new StampView(gl1.getContext(), null);
                 // Set stamp padding
                 view.setPadding(pp, pp, pp, pp);
                 // If it's stamped, stamp it
-                if (i < card.usedStamps) {
+                if (i < card.getCurrentStamps()) {
                     view.setStamped(true);
                 }
 
                 // If we're setting up a single row, we need to set properties
                 // As things are redrawn, we need to reset if there's two rows as well
-                GridLayout.LayoutParams glParams = new GridLayout.LayoutParams(line_1.getLayoutParams());
-                glParams.columnSpec = GridLayout.spec(1);
-                glParams.rowSpec = card.maxStamps < MAX_SINGLE_ROW ?
-                        GridLayout.spec(1, 2)
-                        : GridLayout.spec(1);
-                glParams.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
+                RelativeLayout.LayoutParams glParams = new RelativeLayout.LayoutParams(line_1.getLayoutParams());
+                //glParams.columnSpec = GridLayout.spec(1);
+                //glParams.rowSpec = card.getMaxStampsCard() < MAX_SINGLE_ROW ?
+                //        GridLayout.spec(1, 2)
+                //        : GridLayout.spec(1);
+                //glParams.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
                 glParams.setMargins(mm, mm, mm, mm);
-                line_1.setLayoutParams(glParams);
+                //line_1.setLayoutParams(glParams);
 
                 // Add them to the right row
-                if (card.maxStamps < MAX_SINGLE_ROW || i < numPerRow)
+                if (card.getMaxStampsCard() < MAX_SINGLE_ROW || i < numPerRow)
                     line_1.addView(view, params);
                 else
                     line_2.addView(view, params);

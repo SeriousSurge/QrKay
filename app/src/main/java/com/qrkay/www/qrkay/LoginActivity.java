@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
+            System.out.println("User id (login): " + firebaseAuth.getUid());
             startActivity(new Intent(this, TabActivity.class));
         }
 
