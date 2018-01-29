@@ -62,18 +62,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         buttonSave.setOnClickListener(this);
     }
 
-    private void saveVoucherDetails(){
-        int total = Integer.parseInt(stampsTotal.getText().toString().trim());
-        int used = Integer.parseInt(stampsUsed.getText().toString().trim());
-        String imagePath = "imgPath";
-
-        VoucherModel voucherModel = new VoucherModel(imagePath, total, used);
-
-        databaseVoucher.child(uid).setValue(voucherModel);
-
-        Toast.makeText(getActivity(), "Info Saved.....", Toast.LENGTH_SHORT).show();
-
-    }
+//    private void saveVoucherDetails(){
+//        int total = Integer.parseInt(stampsTotal.getText().toString().trim());
+//        int used = Integer.parseInt(stampsUsed.getText().toString().trim());
+//        String imagePath = "imgPath";
+//
+//        VoucherModel voucherModel = new VoucherModel(imagePath, total, used);
+//
+//        databaseVoucher.child(uid).setValue(voucherModel);
+//
+//        Toast.makeText(getActivity(), "Info Saved.....", Toast.LENGTH_SHORT).show();
+//
+//    }
 
     public void onClick(View view){
         if(view == buttonLogout){
@@ -81,8 +81,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
             startActivity(new Intent(getActivity(), LoginActivity.class));
         }
 
-        if(view == buttonSave){
-            saveVoucherDetails();
-        }
+//        if(view == buttonSave){
+//            saveVoucherDetails();
+//        }
     }
 }
