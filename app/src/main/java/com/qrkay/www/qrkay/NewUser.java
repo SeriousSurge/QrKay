@@ -36,7 +36,7 @@ public class NewUser {
                 if (!dataSnapshot.exists()) {
 
                     DatabaseReference myRef = database.getReference("Users/" + userID + "/cards/welcome");
-                    VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(1, 8)
+                    VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(1, 8, 1)
                             .voucherName("Welcome Card!")
                             .contactEmail("Mark2502@gmail.com")
                             .tAndCs("Terms and conditions Will be shown on the back")

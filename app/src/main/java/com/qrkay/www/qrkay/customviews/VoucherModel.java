@@ -97,11 +97,11 @@ public class VoucherModel{
         private ArrayList<String> stampDates = new ArrayList<String>(){{add("Partridge in a pear tree");add("Two turtle doves");add("Three French hens");}};
 
         // TODO add the default required stuff to here
-        public VoucherBuilder(int allStampsCollected, int maxStampsCard){
+        public VoucherBuilder(int allStampsCollected, int maxStampsCard, int currentStamps){
             this.allStampsCollected = allStampsCollected;
             this.maxStampsCard = maxStampsCard;
             // Think this'll work, don't necessarily need to save the currentStamps in the DB
-            this.currentStamps = allStampsCollected % maxStampsCard;
+            this.currentStamps = currentStamps;
         }
 
         public VoucherBuilder voucherName(String voucherName){

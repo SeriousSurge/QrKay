@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             String userID = firebaseAuth.getUid();
                             System.out.println("User id (register): " + userID);
                             DatabaseReference myRef = database.getReference("Users/"+ userID + "/cards/welcome");
-                            VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(1, 8)
+                            VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(1, 8, 1)
                                     .voucherName("Welcome Card!")
                                     .contactEmail("Mark2502@gmail.com")
                                     .tAndCs("Terms and conditions Will be shown on the back")

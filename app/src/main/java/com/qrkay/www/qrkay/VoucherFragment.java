@@ -59,19 +59,23 @@ public class VoucherFragment extends Fragment {
         verticalLLM = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         voucherModels = new ArrayList<>();
-        voucherModels.add(new VoucherModel.VoucherBuilder(1, 2).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(1, 2, 1).build());
         //voucherModels.add(new VoucherModel("imgPath", 2, 1));
         System.out.println("memes");
-//        voucherModels.add(new VoucherModel("imgPath", 9, 4));
-//        voucherModels.add(new VoucherModel("imgPath", 8, 3));
-//        voucherModels.add(new VoucherModel("imgPath", 7, 2));
-//        voucherModels.add(new VoucherModel("imgPath", 6, 1));
-//        voucherModels.add(new VoucherModel("imgPath", 5, 0));
-//        voucherModels.add(new VoucherModel("imgPath", 4, 2));
-//        voucherModels.add(new VoucherModel("imgPath", 3, 1));
-//        voucherModels.add(new VoucherModel("imgPath", 2, 0));
-//        voucherModels.add(new VoucherModel("imgPath", 1, 1));
+        // Below for debugging/no cards on server/no server situations
+        /*voucherModels.add(new VoucherModel.VoucherBuilder(4, 9, 4).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(3, 8, 3).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(2, 7, 2).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(1, 6, 1).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(0, 5, 0).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(2, 4, 2).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(1, 3, 1).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(0, 2, 0).build());
+        voucherModels.add(new VoucherModel.VoucherBuilder(1, 1, 1).build());
 
+        mRecyclerViewAdapter = new RecyclerViewAdapter(voucherModels);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(verticalLLM);*/
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,7 +91,7 @@ public class VoucherFragment extends Fragment {
                 }
 
 
-                mRecyclerViewAdapter = new RecyclerViewAdapter(getContext(), voucherModels);
+                mRecyclerViewAdapter = new RecyclerViewAdapter(voucherModels);
                 mRecyclerView.setAdapter(mRecyclerViewAdapter);
                 mRecyclerView.setLayoutManager(verticalLLM);
 
