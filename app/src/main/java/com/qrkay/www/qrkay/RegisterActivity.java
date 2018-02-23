@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.qrkay.www.qrkay.customviews.UserCardDetails;
 import com.qrkay.www.qrkay.customviews.VoucherModel;
 
 
@@ -85,9 +86,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             String userID = firebaseAuth.getUid();
-                            DatabaseReference myRef = database.getReference("Users/"+ userID + "/cards/welcome");
-                            VoucherModel welcomeVoucher = new VoucherModel("imgPath", 8, 1);
-                            myRef.setValue(welcomeVoucher);
+                            DatabaseReference myRef = database.getReference("Users/" + userID + "/cards/welcome");
+                            VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(new UserCardDetails("welcome", 1, 6, 1, "today")).build();
+                            //myRef.setValue(welcomeVoucher);
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(), TabActivity.class));
                         }else{

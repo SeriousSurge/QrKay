@@ -1,12 +1,14 @@
 package com.qrkay.www.qrkay.customviews;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.qrkay.www.qrkay.R;
@@ -19,8 +21,10 @@ import com.qrkay.www.qrkay.R;
 public class StampView extends View {
 
     private boolean mIsStamped;
+    private int mStampStyle;
     private Paint mStampedPaint;
     private Paint mStampBackground;
+    private Paint mStampStroke;
     private RectF mBackgroundBounds;
     private RectF mStampBounds;
 
@@ -28,8 +32,16 @@ public class StampView extends View {
         return mIsStamped;
     }
 
+    public int getStampStyle(){ return mStampStyle; }
+
     public void setStamped(boolean stamped){
         mIsStamped = stamped;
+        invalidate();
+        requestLayout();
+    }
+
+    public void setStampStyle(int style){
+        mStampStyle = style;
         invalidate();
         requestLayout();
     }
@@ -44,6 +56,7 @@ public class StampView extends View {
 
         try{
             mIsStamped = a.getBoolean(R.styleable.StampView_isStamped, false);
+            mStampStyle = a.getInt(R.styleable.StampView_stampStyle, 0);
         }finally {
             a.recycle();
         }
@@ -56,7 +69,18 @@ public class StampView extends View {
         super.onDraw(canvas);
 
         // draw background
-        canvas.drawOval(mBackgroundBounds, mStampBackground);
+        if(getStampStyle() == 0){
+            canvas.drawOval(mBackgroundBounds, mStampBackground);
+            canvas.drawOval(mBackgroundBounds, mStampStroke);
+        }else if(getStampStyle() == 1){
+            Resources r = this.getResources();
+            int rxy = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, r.getDisplayMetrics());
+            canvas.drawRoundRect(mBackgroundBounds, rxy, rxy, mStampBackground);
+            canvas.drawRoundRect(mBackgroundBounds, rxy, rxy, mStampStroke);
+        }else{
+            canvas.drawRect(mBackgroundBounds, mStampBackground);
+            canvas.drawRect(mBackgroundBounds, mStampStroke);
+        }
 
         if(isStamped()){
             canvas.drawLine(mStampBounds.left, mStampBounds.top, mStampBounds.right, mStampBounds.bottom, mStampedPaint);
@@ -82,12 +106,10 @@ public class StampView extends View {
         float ww = (float) w - xpad;
         float hh = (float) h - ypad;
         float diameter = Math.min(ww, hh);
-        mBackgroundBounds = new RectF(
-                0.0f, 0.0f, diameter, diameter);
+        mBackgroundBounds = new RectF(0.0f, 0.0f, diameter, diameter);
         mBackgroundBounds.offsetTo(getPaddingLeft(), getPaddingTop());
-        // Add in "stamp" item too?
-        mStampBounds = new RectF(
-                0.0f, 0.0f, diameter, diameter);
+
+        mStampBounds = new RectF(0.0f, 0.0f, diameter, diameter);
         mStampBounds.offset(getPaddingLeft(), getPaddingTop());
     }
 
@@ -95,9 +117,14 @@ public class StampView extends View {
         setLayerToSW(this);
         // Set up paint for background
         mStampBackground = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mStampBackground.setColor(Color.BLACK);
-        mStampBackground.setStyle(Paint.Style.STROKE);
-        mStampBackground.setStrokeWidth(4);
+        mStampBackground.setColor(Color.WHITE);
+        mStampBackground.setStyle(Paint.Style.FILL);
+
+        mStampStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mStampStroke.setColor(Color.BLACK);
+        mStampStroke.setStyle(Paint.Style.STROKE);
+        mStampStroke.setStrokeWidth(4);
+
         // Set up paint for stamp
         mStampedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mStampedPaint.setStyle(Paint.Style.STROKE);

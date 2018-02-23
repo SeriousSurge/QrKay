@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.qrkay.www.qrkay.customviews.RecyclerViewAdapter;
+import com.qrkay.www.qrkay.customviews.UserCardDetails;
 import com.qrkay.www.qrkay.customviews.VoucherModel;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class VoucherFragment extends Fragment {
 
         userID = firebaseAuth.getUid();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Users/" + userID +"/cards" );
 
 
@@ -59,7 +60,7 @@ public class VoucherFragment extends Fragment {
         verticalLLM = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         voucherModels = new ArrayList<>();
-        voucherModels.add(new VoucherModel("imgPath", 2, 1));
+        //voucherModels.add(new VoucherModel.VoucherBuilder(new UserCardDetails("none", 12, 8, 4, "yday")).build());
         System.out.println("memes");
 //        voucherModels.add(new VoucherModel("imgPath", 9, 4));
 //        voucherModels.add(new VoucherModel("imgPath", 8, 3));
@@ -76,26 +77,44 @@ public class VoucherFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 voucherModels.clear();
-
+                // TODO we need to pull user voucher data in UserCardDetails, then pull VoucherModel from business and combine
                 for (DataSnapshot cardSnapshot: dataSnapshot.getChildren()){
-                    VoucherModel voucherModel = cardSnapshot.getValue(VoucherModel.class);
-                    voucherModels.add(voucherModel);
-                    System.out.println(voucherModel.getMaxStamps());
-                    System.out.println(voucherModel.getUsedStamps());
+                    final UserCardDetails userCardDetails = cardSnapshot.getValue(UserCardDetails.class);
+
+                    // TODO this might be very very stupid...but can't see another way as of yet
+                    DatabaseReference businessRef = database.getReference("Retailers/" + cardSnapshot.getKey() + "/Card");
+                    businessRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot businessDataSnapshot) {
+                            // Get voucher model from business, then create new VoucherModel adding user & business details
+                            final VoucherModel businessVoucherModel = businessDataSnapshot.getValue(VoucherModel.class);
+                            System.out.println(businessDataSnapshot.getValue());
+                            voucherModels.add(new VoucherModel.VoucherBuilder(userCardDetails)
+                                    .businessVoucherModel(businessVoucherModel).build());
+
+                            System.out.println(voucherModels.size());
+
+                            mRecyclerViewAdapter = new RecyclerViewAdapter(voucherModels);
+                            mRecyclerView.setAdapter(mRecyclerViewAdapter);
+                            mRecyclerView.setLayoutManager(verticalLLM);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w(TAG, "Failed to read value (business).", databaseError.toException());
+                        }
+                    });
+
                     System.out.println(cardSnapshot.getValue());
                 }
 
-
-                mRecyclerViewAdapter = new RecyclerViewAdapter(getContext(), voucherModels);
-                mRecyclerView.setAdapter(mRecyclerViewAdapter);
-                mRecyclerView.setLayoutManager(verticalLLM);
-
+                //
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+                Log.w(TAG, "Failed to read value (user).", error.toException());
             }
         });
 

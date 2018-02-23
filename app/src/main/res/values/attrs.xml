@@ -2,5 +2,10 @@
 <resources>
     <declare-styleable name="StampView">
         <attr name="isStamped" format="boolean"/>
+        <attr name="stampStyle" format="enum">
+            <enum name="STAMP_CIRCLE" value="0"/>
+            <enum name="STAMP_ROUNDED_SQUARE" value="1"/>
+            <enum name="STAMP_SQUARE" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>
