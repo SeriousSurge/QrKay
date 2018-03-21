@@ -15,4 +15,8 @@
     <string name="stamp_style">Stamp style:</string>
     <string name="bg">Background style:</string>
     <string name="tc">Terms &amp; Conditions:</string>
+
+    <string name="facebook_app_id">178663192903818</string>
+    <string name="fb_login_protocol_scheme">fb178663192903818</string>
+
 </resources>
