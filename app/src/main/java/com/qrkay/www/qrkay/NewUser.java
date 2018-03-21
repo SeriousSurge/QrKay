@@ -30,26 +30,26 @@ public class NewUser {
 
         DatabaseReference myRef = database.getReference("Users/" + userID + "/cards/welcome");
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-
-                    DatabaseReference myRef = database.getReference("Users/" + userID + "/cards/welcome");
-                    VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(1, 8)
-                            .voucherName("Welcome Card!")
-                            .contactEmail("Mark2502@gmail.com")
-                            .tAndCs("Terms and conditions Will be shown on the back")
-                            .build();
-                    myRef.setValue(welcomeVoucher);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-
-            }
-        });
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (!dataSnapshot.exists()) {
+//
+//                    DatabaseReference myRef = database.getReference("Users/" + userID + "/cards/welcome");
+//                    VoucherModel welcomeVoucher = new VoucherModel.VoucherBuilder(1, 8)
+//                            .voucherName("Welcome Card!")
+//                            .contactEmail("Mark2502@gmail.com")
+//                            .tAndCs("Terms and conditions Will be shown on the back")
+//                            .build();
+//                    myRef.setValue(welcomeVoucher);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError firebaseError) {
+//
+//            }
+//        });
     }
 }
