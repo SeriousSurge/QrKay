@@ -15,10 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import net.glxn.qrgen.android.QRCode;
 
-/**
- * Created by mark2 on 18/01/2018.
- */
-
 public class QrFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;

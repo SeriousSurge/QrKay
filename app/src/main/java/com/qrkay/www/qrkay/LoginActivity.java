@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(firebaseAuth.getCurrentUser() != null){
             System.out.println("User id (login): " + firebaseAuth.getUid());
             startActivity(new Intent(this, TabActivity.class));
+            finish();
         }
 
         progressBar = new ProgressBar(this);
@@ -114,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             NewUser.isNewUser();
                             startActivity(new Intent(getApplicationContext(), TabActivity.class));
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -150,6 +152,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(), TabActivity.class));
+                            finish();
                         }else{
                             Toast.makeText(LoginActivity.this, "Could Not Login, Please Try again", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -166,6 +169,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(view == textViewRegister){
             finish();
             startActivity(new Intent(this, RegisterActivity.class));
+            finish();
         }if(view.getId() ==  R.id.sign_in_button) {
             googleSignIn();
         }
@@ -190,6 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             NewUser.isNewUser();
                             startActivity(new Intent(getApplicationContext(), TabActivity.class));
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

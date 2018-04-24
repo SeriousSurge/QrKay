@@ -25,11 +25,6 @@ import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by mark2 on 19/01/2018.
- *
- */
-
 public class VoucherFragment extends Fragment {
 
     ArrayList<VoucherModel> voucherModels;

@@ -1,9 +1,5 @@
 package com.qrkay.www.qrkay;
 
-/**
- * Created by eoin2 on 28/01/2018.
- *
- */
 
 public class User {
     private String userName;

@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(this, TabActivity.class));
+            finish();
         }
 
         progressBar = new ProgressBar(this);
@@ -91,6 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             //myRef.setValue(welcomeVoucher);
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(), TabActivity.class));
+                            finish();
                         }else{
                             Toast.makeText(RegisterActivity.this, "Could Not Register, Please Try again", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -106,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (view == textViewSignIn){
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
     }
     public final static boolean isValidEmail(CharSequence target) {

@@ -9,10 +9,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.qrkay.www.qrkay.customviews.VoucherModel;
 
 
-/**
- * Created by mark2 on 30/01/2018.
- */
-
 public class NewUser {
 
 

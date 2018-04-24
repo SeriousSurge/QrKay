@@ -1,9 +1,5 @@
 package com.qrkay.www.qrkay.customviews;
 
-/**
- * Created by eoin2 on 14/02/2018.
- *
- */
 
 public class UserCardDetails {
 

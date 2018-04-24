@@ -3,10 +3,7 @@ package com.qrkay.www.qrkay.customviews;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by eoin2 on 07/02/2018.
- *
- */
+
 
 public class BusinessVoucherModel {
 

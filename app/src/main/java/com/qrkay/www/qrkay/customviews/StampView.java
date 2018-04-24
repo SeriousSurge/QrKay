@@ -13,11 +13,6 @@ import android.view.View;
 
 import com.qrkay.www.qrkay.R;
 
-/**
- * Created by eoin2 on 24/01/2018.
- * Custom view for individual stamps
- */
-
 public class StampView extends View {
 
     private boolean mIsStamped;

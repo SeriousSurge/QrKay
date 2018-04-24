@@ -18,14 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qrkay.www.qrkay.R;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-/**
- * Created by eoin2 on 24/01/2018.
- *
- */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -36,6 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public CardView mCardView;
         public ImageView mLogo;
+        ImageView holder;
         public LinearLayout mLine1;
         public LinearLayout mLine2;
         public TextView mBusinessName;
@@ -45,8 +44,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private boolean isFlipped;
 
+
+
         public ViewHolder(View itemView){
             super(itemView);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -60,6 +63,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     isFlipped = !isFlipped;
                 }
             });
+
+            holder = itemView.findViewById(R.id.img_logo);
 
             mCardView = itemView.findViewById(R.id.card_view);
             mLogo = itemView.findViewById(R.id.img_logo);
@@ -118,7 +123,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         colorTheme[2] = colorTheme[0];
 
         if(model.getCardType() != VoucherModel.NOIMG_STYLE)
-            holder.mLogo.setImageResource(R.mipmap.ic_launcher);
+            Picasso.get()
+                    .load(model.getLogo())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .error(R.mipmap.ic_launcher)
+                    .resize(120, 120)
+                    .into(holder.mLogo);
         else
             holder.mLogo.setImageResource(android.R.color.transparent);
 
